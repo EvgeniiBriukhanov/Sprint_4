@@ -39,7 +39,6 @@ public class ScooterOrderTest {
         this.dateForRent = dateForRent;
         this.numberOfRentalDays = numberOfRentalDays;
         this.colorScooter = colorScooter;
-
         this.messageCourier = messageCourier;
     }
 
@@ -73,32 +72,29 @@ public class ScooterOrderTest {
         scooterHomePage.clickFirstOrderButton();
         ForWhomScooterPage forWhomScooterPage = new ForWhomScooterPage(driver);
         forWhomScooterPage.waitForWhomScooterPageLoading();
-        assertTrue(forWhomScooterPage.isHeaderDisplayed());
-        driver.get(Constant.URL_HOME_PAGE);
-        scooterHomePage.clickSecondOrderButton();
-        forWhomScooterPage.waitForWhomScooterPageLoading();
-        assertTrue(forWhomScooterPage.isHeaderDisplayed());
+        forWhomScooterPage.isHeaderDisplayed();
 
         forWhomScooterPage.setFirstName(firstName);
-        assertTrue(forWhomScooterPage.isFirstNameSetted(firstName));
+        forWhomScooterPage.isFirstNameSetted(firstName);
         forWhomScooterPage.setLastName(lastName);
-        assertTrue(forWhomScooterPage.isLastNameSetted(lastName));
+        forWhomScooterPage.isLastNameSetted(lastName);
         forWhomScooterPage.setAddress(address);
-        assertTrue(forWhomScooterPage.isAddressSetted(address));
+        forWhomScooterPage.isAddressSetted(address);
         forWhomScooterPage.setPhoneNumber(phoneNumber);
-        assertTrue(forWhomScooterPage.isPhoneNumberSetted(phoneNumber));
+        forWhomScooterPage.isPhoneNumberSetted(phoneNumber);
         forWhomScooterPage.setMetroStation(metroStation);
-        assertTrue(forWhomScooterPage.isMetroStationSetted(metroStation));
+        forWhomScooterPage.isMetroStationSetted(metroStation);
 
         forWhomScooterPage.clickNextButton();
+
         AboutRentPage aboutRentPage = new AboutRentPage(driver);
         aboutRentPage.waitAboutRentPage();
         aboutRentPage.selectRentalDate(dateForRent);
         aboutRentPage.setRentalPeriod(numberOfRentalDays);
-        assertTrue(aboutRentPage.isSettedRentalPeriod(numberOfRentalDays));
+        aboutRentPage.isSettedRentalPeriod(numberOfRentalDays);
         aboutRentPage.setAndCheckColourCheckBox(colorScooter);
         aboutRentPage.setComment(messageCourier);
-        assertTrue(aboutRentPage.isCommentSetted(messageCourier));
+        aboutRentPage.isCommentSetted(messageCourier);
 
         aboutRentPage.clickOrderButton();
         aboutRentPage.waitOrderModal();

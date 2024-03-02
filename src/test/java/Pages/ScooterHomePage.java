@@ -55,13 +55,16 @@ public class ScooterHomePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", questionsHeader);
     }
 
-    public void openingTabsAndCheckingText(int numberSize, String expectedTextQuestion, String expectedTextAnswer) {
+    public void checkingHeadingText(int numberSize, String expectedTextQuestion) {
         List<WebElement> elements = driver.findElements(QUESTIONS_LIST);
         Assert.assertEquals(elements.get(numberSize).getText(), expectedTextQuestion);
+    }
+
+    public void checkingPanelText(int numberSize, String expectedTextAnswer) {
+        List<WebElement> elements = driver.findElements(QUESTIONS_LIST);
         elements.get(numberSize).click();
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id(elementAnswer + numberSize)));
         Assert.assertEquals(driver.findElement(By.id(elementAnswer + numberSize)).getText(), expectedTextAnswer);
     }
-
 }

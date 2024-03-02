@@ -1,17 +1,30 @@
 import Constants.Constant;
-import Constants.ExpectedTexts;
 import Pages.ScooterHomePage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static Constants.ExpectedTexts.*;
 
+@RunWith(Parameterized.class)
 public class QuestionsTest {
 
     private WebDriver driver;
+
+    private final int numberQuestion;
+    private final String textHeading;
+    private final String textPanel;
+
+    public QuestionsTest(int numberQuestion, String textHeading, String textPanel) {
+        this.numberQuestion = numberQuestion;
+        this.textHeading = textHeading;
+        this.textPanel = textPanel;
+    }
 
     @Before
     public void actionBefore() {
@@ -26,6 +39,20 @@ public class QuestionsTest {
         driver.quit();
     }
 
+    @Parameterized.Parameters
+    public static Object[][] getUserData() {
+        return new Object[][]{
+                {0, TEXT_HEADING_0, TEXT_PANEL_0},
+                {1, TEXT_HEADING_1, TEXT_PANEL_1},
+                {2, TEXT_HEADING_2, TEXT_PANEL_2},
+                {3, TEXT_HEADING_3, TEXT_PANEL_3},
+                {4, TEXT_HEADING_4, TEXT_PANEL_4},
+                {5, TEXT_HEADING_5, TEXT_PANEL_5},
+                {6, TEXT_HEADING_6, TEXT_PANEL_6},
+                {7, TEXT_HEADING_7, TEXT_PANEL_7},
+        };
+    }
+
     @Test
     public void TheImportantQuestionsTest() {
         ScooterHomePage scooterHomePage = new ScooterHomePage(driver);
@@ -33,14 +60,8 @@ public class QuestionsTest {
         scooterHomePage.confirmCookie();
         scooterHomePage.scrollAcrossThePage();
 
-        scooterHomePage.openingTabsAndCheckingText(0, ExpectedTexts.TEXT_HEADING_0, ExpectedTexts.TEXT_PANEL_0);
-        scooterHomePage.openingTabsAndCheckingText(1, ExpectedTexts.TEXT_HEADING_1, ExpectedTexts.TEXT_PANEL_1);
-        scooterHomePage.openingTabsAndCheckingText(2, ExpectedTexts.TEXT_HEADING_2, ExpectedTexts.TEXT_PANEL_2);
-        scooterHomePage.openingTabsAndCheckingText(3, ExpectedTexts.TEXT_HEADING_3, ExpectedTexts.TEXT_PANEL_3);
-        scooterHomePage.openingTabsAndCheckingText(4, ExpectedTexts.TEXT_HEADING_4, ExpectedTexts.TEXT_PANEL_4);
-        scooterHomePage.openingTabsAndCheckingText(5, ExpectedTexts.TEXT_HEADING_5, ExpectedTexts.TEXT_PANEL_5);
-        scooterHomePage.openingTabsAndCheckingText(6, ExpectedTexts.TEXT_HEADING_6, ExpectedTexts.TEXT_PANEL_6);
-        scooterHomePage.openingTabsAndCheckingText(7, ExpectedTexts.TEXT_HEADING_7, ExpectedTexts.TEXT_PANEL_7);
+        scooterHomePage.checkingHeadingText(numberQuestion, textHeading);
+        scooterHomePage.checkingPanelText(numberQuestion, textPanel);
     }
 
 }
