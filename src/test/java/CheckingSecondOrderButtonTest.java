@@ -7,16 +7,28 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class CheckingSecondOrderButtonTest {
 
     private WebDriver driver;
 
+    public WebDriver getWebDriver(boolean useFirefox) {
+        if (useFirefox) {
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+            return new FirefoxDriver(options);
+        } else {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+            return new ChromeDriver(options);
+        }
+    }
+
     @Before
     public void actionBefore() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
+        driver = getWebDriver(false);
         driver.get(Constant.URL_HOME_PAGE);
     }
 
